@@ -15,7 +15,7 @@ public class PatientService {
     @Autowired
 //creating a variable and then generating its constructor
 // also for dependency injection
-private final PatientRepository patientRepository;
+private PatientRepository patientRepository;
 
     public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
@@ -66,6 +66,16 @@ private final PatientRepository patientRepository;
         }
         else {
             throw new EntityNotFoundException("patient with id "+ id +" not found");
+        }
+
+    }
+    public void deletePatient(Long id){
+        if (patientRepository.existsById(id)){
+            patientRepository.deleteById(id);
+        }
+        else
+        {
+            throw new EntityNotFoundException("Patient with ID " + id + " not found.");
         }
 
     }
