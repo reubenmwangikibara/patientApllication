@@ -2,6 +2,8 @@ package Patientapplication.example.demo.Service;
 
 import Patientapplication.example.demo.Entity.Patient;
 import Patientapplication.example.demo.Repository.PatientRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class PatientService {
-
+    @Autowired
 //creating a variable and then generating its constructor
 // also for dependency injection
 private final PatientRepository patientRepository;
@@ -37,5 +39,36 @@ private final PatientRepository patientRepository;
 
         patientRepository.save(patient);
     }
+
+    public Patient updatePatient(Long id, Patient updatedPatient)
+    {
+        Optional<Patient> existingPatientOptional = patientRepository.findById(id);
+
+        if (existingPatientOptional.isPresent()) {
+            Patient existingPatient = existingPatientOptional.get();
+            // Update only if the new values are not null
+            if(updatedPatient.getEmail()!=null){
+                existingPatient.setEmail(updatedPatient.getEmail());
+            }
+//            if(updatedPatient.getId()==null)
+//            {
+//                System.out.println("ID does not exist");
+//            }
+            if(updatedPatient.getName()!=null)
+            {
+
+                existingPatient.setName(updatedPatient.getName());
+            }
+            if (updatedPatient.getPhonnumber()!=null) {
+                existingPatient.setPhonnumber(updatedPatient.getPhonnumber());
+            }
+            return patientRepository.save(existingPatient);
+        }
+        else {
+            throw new EntityNotFoundException("patient with id "+ id +" not found");
+        }
+
+    }
+
 
 }

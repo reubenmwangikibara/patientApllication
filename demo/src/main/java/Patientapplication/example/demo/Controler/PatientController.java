@@ -4,6 +4,7 @@ import Patientapplication.example.demo.Entity.Patient;
 import Patientapplication.example.demo.Service.PatientService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,17 +16,27 @@ public class PatientController {
     private PatientService patientService;
 
 //    public PatientController(PatientService patientService) {
-//        this.patientService = patientService;
-//        //return null;
-//    }
+//    this.patientService = patientService;
+//       //return null;
+//  }
     @GetMapping
-    public List<Patient>getAllPatient(){
+    public List<Patient> getAllPatient() {
         return patientService.getPatient();
     }
+
     @PostMapping
-    public void registerNewPatient(@RequestBody Patient patient ){
-       patientService.addNewPatient(patient);
+    public void registerNewPatient(@RequestBody Patient patient) {
+        patientService.addNewPatient(patient);
 
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Patient> updatedPatient(
+            @PathVariable Long id,
+            @RequestBody Patient patient) {
+        Patient updatedPatient = patientService.updatePatient(id,patient);
+        return ResponseEntity.ok(updatedPatient);
+    }
+
 
 }
