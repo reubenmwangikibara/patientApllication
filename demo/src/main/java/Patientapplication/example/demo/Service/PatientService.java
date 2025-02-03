@@ -15,7 +15,7 @@ public class PatientService {
     @Autowired
 //creating a variable and then generating its constructor
 // also for dependency injection
-private PatientRepository patientRepository;
+private final PatientRepository patientRepository;
 
     public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
@@ -36,8 +36,23 @@ private PatientRepository patientRepository;
         if (patientOptional.isPresent()){
             throw new IllegalStateException("The email " + patient.getEmail()+" is in use");
         }
+        else if(patient.getName()==null)
+        {
+            throw new IllegalStateException("The name cannot be empty ");
+        }
+        else if(patient.getPhonnumber()==null)
+        {
+            throw new IllegalStateException("Please enter phone number ");
+        }
+        else if(patient.getDOB()==null)
+        {
+            throw new IllegalStateException("date of birth cannot be empty ");
+        }
+        else{
+            System.out.println("patient registered");
+            patientRepository.save(patient);
 
-        patientRepository.save(patient);
+        }
     }
 
     public Patient updatePatient(Long id, Patient updatedPatient)
@@ -50,10 +65,6 @@ private PatientRepository patientRepository;
             if(updatedPatient.getEmail()!=null){
                 existingPatient.setEmail(updatedPatient.getEmail());
             }
-//            if(updatedPatient.getId()==null)
-//            {
-//                System.out.println("ID does not exist");
-//            }
             if(updatedPatient.getName()!=null)
             {
 

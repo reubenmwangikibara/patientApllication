@@ -24,6 +24,7 @@ public class PatientController {
         return patientService.getPatient();
     }
 
+
     @PostMapping
     public void registerNewPatient(@RequestBody Patient patient) {
         patientService.addNewPatient(patient);
