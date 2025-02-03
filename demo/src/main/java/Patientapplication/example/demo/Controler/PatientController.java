@@ -19,7 +19,6 @@ public class PatientController {
 //        //return null;
 //    }
     @GetMapping
-
     public List<Patient>getAllPatient(){
         return patientService.getPatient();
     }

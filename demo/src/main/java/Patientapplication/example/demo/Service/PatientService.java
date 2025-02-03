@@ -23,7 +23,7 @@ private final PatientRepository patientRepository;
         return patientRepository.findAll();
     }
     public Patient AddPatient(Patient patient) {
-        return patientRepository.save(patient);
+      return patientRepository.save(patient);
     }
 
     public void addNewPatient(Patient patient) {
@@ -32,17 +32,10 @@ private final PatientRepository patientRepository;
         Optional<Patient>patientOptional= patientRepository.
                 findStudentByEmail(patient.getEmail());
         if (patientOptional.isPresent()){
-            throw new IllegalStateException("The email " + patient.getEmail() + "is in use");
+            throw new IllegalStateException("The email " + patient.getEmail()+" is in use");
         }
+
         patientRepository.save(patient);
     }
 
-//    public void addNewPatient(Patient patient) {
-//        Optional<Patient> studentOptional= patientRepository.
-//                findPatientByEmail(patient.getEmail());
-//        if (patientOptional.isPresent()){
-//            throw new IllegalStateException("the email already exist!!");
-//        }
-//        patientRepository.save(patient);
-//    }
 }
