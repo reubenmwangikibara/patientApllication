@@ -1,18 +1,35 @@
 package Patientapplication.example.demo.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 @Entity
+@Table
 public class Patient {
-
+//    @Id
+//    @SequenceGenerator(
+//        name= "patient_sequence",
+//        sequenceName = "patient_sequence",
+//        allocationSize = 1
+//)
+//    @GeneratedValue(
+//the recomended value for post-gress
+//        strategy = GenerationType.SEQUENCE,
+//        generator = "patient_sequence"
+//
+//)
 @Id
+@GeneratedValue(strategy = GenerationType.IDENTITY) // Use IDENTITY for auto-increment
+
         private Long id;
         private String name;
         private String email;
         private Long phonnumber;
         private LocalDate DOB;
+
+        public Patient(){
+
+        }
 //generated constructors
     public Patient(Long id,
                    String name,
@@ -35,7 +52,7 @@ public class Patient {
         this.email = email;
         this.name = name;
     }
-    // Method to calculate age based on DOB
+
 //    private int calculateAge(LocalDate DOB) {
 //        return Period.between(DOB, LocalDate.now()).getYears();
 //    }
