@@ -15,7 +15,7 @@ public class PatientService {
     @Autowired
 //creating a variable and then generating its constructor
 // also for dependency injection
-private final PatientRepository patientRepository;
+private PatientRepository patientRepository;
 
     public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
@@ -49,10 +49,7 @@ private final PatientRepository patientRepository;
             throw new IllegalStateException("date of birth cannot be empty ");
         }
         else{
-            System.out.println("patient registered");
-            patientRepository.save(patient);
-
-        }
+        patientRepository.save(patient);}
     }
 
     public Patient updatePatient(Long id, Patient updatedPatient)

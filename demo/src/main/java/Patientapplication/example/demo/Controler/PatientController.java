@@ -25,6 +25,7 @@ public class PatientController {
     }
 
 
+
     @PostMapping
     public void registerNewPatient(@RequestBody Patient patient) {
         patientService.addNewPatient(patient);
@@ -38,6 +39,7 @@ public class PatientController {
         Patient updatedPatient = patientService.updatePatient(id,patient);
         return ResponseEntity.ok(updatedPatient);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePatient(@PathVariable Long id) {
