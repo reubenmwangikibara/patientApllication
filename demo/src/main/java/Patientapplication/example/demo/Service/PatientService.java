@@ -24,6 +24,10 @@ private PatientRepository patientRepository;
     public List<Patient> getPatient() {
         return patientRepository.findAll();
     }
+    //select by id
+    public Optional<Patient> getPatientById(Long id) {
+        return patientRepository.findById(id);
+    }
     public Patient AddPatient(Patient patient) {
       return patientRepository.save(patient);
     }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path= "api/v1/patient")
@@ -23,7 +24,12 @@ public class PatientController {
     public List<Patient> getAllPatient() {
         return patientService.getPatient();
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<Patient> getPatientById(@PathVariable Long id) {
+        Optional<Patient> patient = patientService.getPatientById(id);
+        return patient.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
 
     @PostMapping
